@@ -1,9 +1,6 @@
 name = "hono-firebase-auth"
-type = "javascript"
+main = "dist/index.js"
 compatibility_date = "2024-07-29"
 
 [build]
 command = "npm run build"
-
-[site]
-bucket = "./public"
