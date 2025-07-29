@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Auth Test</title>
+</head>
+<body>
+  <h1>Signup</h1>
+  <input id="signup-email" placeholder="Email">
+  <input id="signup-pass" type="password" placeholder="Password">
+  <button onclick="signup()">Signup</button>
+
+  <h1>Login</h1>
+  <input id="login-email" placeholder="Email">
+  <input id="login-pass" type="password" placeholder="Password">
+  <button onclick="login()">Login</button>
+
+  <script>
+    async function signup() {
+      const email = document.getElementById('signup-email').value
+      const password = document.getElementById('signup-pass').value
+      const res = await fetch('https://your-cloudflare-worker-url/signup', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
+      })
+      alert(await res.text())
+    }
+
+    async function login() {
+      const email = document.getElementById('login-email').value
+      const password = document.getElementById('login-pass').value
+      const res = await fetch('https://your-cloudflare-worker-url/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
+      })
+      alert(await res.text())
+    }
+  </script>
+</body>
+</html>
