@@ -2,11 +2,18 @@
 import { Hono } from 'hono'
 import { cors } from 'hono/cors'
 import { initializeApp } from 'firebase/app'
-import { getFirestore, collection, addDoc, getDocs, query, where } from 'firebase/firestore'
+import {
+  getFirestore,
+  collection,
+  addDoc,
+  getDocs,
+  query,
+  where
+} from 'firebase/firestore'
 
 const app = new Hono()
 
-// تفعيل CORS لكل المسارات
+// ✅ تفعيل CORS لكل المسارات
 app.use('*', cors({
   origin: '*',
   allowMethods: ['GET', 'POST', 'OPTIONS'],
@@ -27,6 +34,7 @@ const firebaseConfig = {
 const firebaseApp = initializeApp(firebaseConfig)
 const db = getFirestore(firebaseApp)
 
+// ✅ مسار تسجيل حساب جديد
 app.post('/signup', async (c) => {
   const { email, password } = await c.req.json()
   const usersRef = collection(db, 'users')
@@ -34,6 +42,7 @@ app.post('/signup', async (c) => {
   return c.json({ message: 'User registered successfully' })
 })
 
+// ✅ مسار تسجيل الدخول
 app.post('/login', async (c) => {
   const { email, password } = await c.req.json()
   const usersRef = collection(db, 'users')
@@ -47,6 +56,8 @@ app.post('/login', async (c) => {
   }
 })
 
+// ✅ مسار الصفحة الرئيسية "/"
 app.get('/', (c) => c.text('Server is running'))
 
+// ✅ مهم: تصدير الـ app
 export default app
